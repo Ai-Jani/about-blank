@@ -1,0 +1,24 @@
+{
+  "config": {
+    "default": true, // All rules to default
+    "MD003": { "style": "atx" }, // heading-style
+    "MD004": { "style": "dash" }, // ul-style
+    "MD007": { "indent": 4 }, // ul-indent
+    "MD009": false, // no-trailing-spaces
+    "MD013": false, // line-length
+    "MD025": false, // single-h1
+    "MD026": false, // no-trailing-punctuation
+    "MD029": { "style": "ordered" }, // ol-prefix
+    "MD031": false, // blanks-around-fences
+    "MD032": false, // blanks-around-lists
+    "MD033": false, // no-inline-html
+    "MD040": false, // fenced-code-language
+    "MD041": false, // first-line-h1
+    "MD045": false, // no-alt-text
+    "MD046": { "style": "fenced" }, // code-block-style
+    "MD048": { "style": "backtick" }, // code-fence-style
+    "MD049": { "style": "asterisk" }, // emphasis-style
+    "MD050": { "style": "asterisk" } // strong-style
+  },
+  "ignores": ["**/node_modules/**", "**/dist/**"]
+}

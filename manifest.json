@@ -1,0 +1,10 @@
+{
+  "id": "about-blank",
+  "name": "About Blank",
+  "version": "0.0.1",
+  "minAppVersion": "0.15.0",
+  "description": "About empty files (New Tabs)",
+  "author": "Ai-Jani",
+  "authorUrl": "https://github.com/Ai-Jani",
+  "isDesktopOnly": false
+}
