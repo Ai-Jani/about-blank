@@ -1,16 +1,19 @@
 # About Blank
 
-This is a community plugin for [Obsidian](https://obsidian.md/).  
-Customize the empty file (New Tab) *itself* a little bit by adding "Actions" such as "Commands" and "Open files". To make these actions easier to use, it also includes various action editing features ("Icon", "Ask before execution", "Grouping"). Additionally, can register these actions as new commands.
+This is a community plugin for [Obsidian](https://obsidian.md/).
+- Customize the empty file (New Tab) *itself* a little bit by adding "Actions": "Commands", "Open files".
+- To make these actions easier to use, it also includes various action editing features: "Icon", "Ask before execution", "Grouping".
+- Additionally, can register these actions as new commands.
 
-> ![WARNING]
+> [!WARNING]
 > The "New Tab" feature relies on undocumented Obsidian behavior and may stop working in future versions. However, the command-related features should remain usable as it is designed independently.
 
 ## Features
 
 ### Customize the New Tabs
 
-- This plugin does not provide its own custom view when there are no tabs to display. Instead, it shows the default "New Tab" (for example, if you open a new file in this state, the "New Tab" will automatically disappear).
+- When there are no tabs to display, This plugin just shows the default "New Tab". So, it does NOT provide "Custom view" or other notes.
+    - This means a truly empty file. For example, if you open a new file in this state, the "New Tab" will automatically disappear.
 - In exchange, the customization options are somewhat limited. You can assign arbitrary "Commands" or "Open files" (which this plugin refers to as "Actions").
 - There is also a function to hide messages and buttons that are displayed by default.
 
