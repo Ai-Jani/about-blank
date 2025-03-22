@@ -1,7 +1,7 @@
 {
-  "name": "obsidian-sample-plugin",
-  "version": "1.0.0",
-  "description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+  "name": "about-blank",
+  "version": "0.0.1",
+  "description": "Customize the empty file (New Tab) itself a little bit by adding 'Commands' or 'Open files'. And edit these: 'Icon', 'Ask before execution', 'Grouping', 'Register as a new command'.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
@@ -12,7 +12,7 @@
     "mdlint": "markdownlint-cli2 --fix \"**/*.md\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Ai-Jani",
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^8.57.1",
