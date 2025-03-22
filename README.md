@@ -43,3 +43,7 @@ This is a community plugin for [Obsidian](https://obsidian.md/).
 - If commands are not properly reflected after registering or unregistering them, please reload Obsidian.
 - This plugin applies CSS by default to hide the messages and buttons on the "New Tab". If the processing for the "New Tab" fails to work properly, nothing may be displayed on the "New Tab".
 - You can disable "New Tab" and "Quick actions" features by turning off the "Add actions to New Tabs" setting. This is useful if you only want to use the command-related features or if these features stop working in future versions.
+
+## License
+
+This project is licensed under the MIT License, see the LICENSE file for details.
