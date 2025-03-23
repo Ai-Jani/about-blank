@@ -408,9 +408,20 @@ const generateCommandCallback = (
   action: Action,
 ): () => Promise<void> => {
   const { commandName, commandId } = action.content as ContentOfCommand;
-  return async () => {
-    try {
-      if (action.ask === true) { // Explicitly true
+
+  const basicCallback = async (): Promise<void> => {
+    const commands = (app as UnsafeApp)[UNSAFE_PROPERTIES.appCommands.parent];
+    // Currently, `app.commands.commands.executeCommandById()` returns false
+    // if the specified ID does not exist, and true if the execution is successful.
+    const res: boolean = await commands[UNSAFE_PROPERTIES.appCommands.executeById](commandId);
+    if (!res) {
+      new Notice(`Failed to execute command: ${commandName} (${commandId})`);
+    }
+  };
+
+  if (action.ask === true) { // Explicitly true
+    return async (): Promise<void> => {
+      try {
         const cancel = await cancelExecute(
           app,
           `${action.name}`,
@@ -419,19 +430,20 @@ const generateCommandCallback = (
         if (cancel) {
           return;
         }
+        await basicCallback();
+      } catch (error) {
+        loggerOnError(error, "Failed to execute command.\n(About Blank)");
       }
-
-      const commands = (app as UnsafeApp)[UNSAFE_PROPERTIES.appCommands.parent];
-      // Currently, `app.commands.commands.executeCommandById()` returns false
-      // if the specified ID does not exist, and true if the execution is successful.
-      const res: boolean = await commands[UNSAFE_PROPERTIES.appCommands.executeById](commandId);
-      if (!res) {
-        new Notice(`Failed to execute command: ${commandName} (${commandId})`);
+    };
+  } else {
+    return async (): Promise<void> => {
+      try {
+        await basicCallback();
+      } catch (error) {
+        loggerOnError(error, "Failed to execute command.\n(About Blank)");
       }
-    } catch (error) {
-      loggerOnError(error, "Failed to execute command.\n(About Blank)");
-    }
-  };
+    };
+  }
 };
 
 const generateFileCallback = (
@@ -440,9 +452,19 @@ const generateFileCallback = (
 ): () => Promise<void> => {
   const { fileName, filePath } = action.content as ContentOfFile;
   const normalizedPath = normalizePath(filePath);
-  return async () => {
-    try {
-      if (action.ask === true) { // Explicitly true
+
+  const basicCallback = async (): Promise<void> => {
+    // Prevent creating a new file.
+    if (!app.vault.getFiles().map((file) => file.path).includes(normalizedPath)) {
+      new Notice(`File not found: ${fileName} (${normalizedPath})`);
+      return;
+    }
+    await app.workspace.openLinkText("", normalizedPath);
+  };
+
+  if (action.ask === true) { // Explicitly true
+    return async (): Promise<void> => {
+      try {
         const cancel = await cancelExecute(
           app,
           `${action.name}`,
@@ -451,18 +473,20 @@ const generateFileCallback = (
         if (cancel) {
           return;
         }
+        await basicCallback();
+      } catch (error) {
+        loggerOnError(error, "Failed to open file.\n(About Blank)");
       }
-
-      // Prevent creating a new file.
-      if (!app.vault.getFiles().map((file) => file.path).includes(normalizedPath)) {
-        new Notice(`File not found: ${fileName} (${normalizedPath})`);
-        return;
+    };
+  } else {
+    return async (): Promise<void> => {
+      try {
+        await basicCallback();
+      } catch (error) {
+        loggerOnError(error, "Failed to open file.\n(About Blank)");
       }
-      await app.workspace.openLinkText("", normalizedPath);
-    } catch (error) {
-      loggerOnError(error, "Failed to open file.\n(About Blank)");
-    }
-  };
+    };
+  }
 };
 
 const cancelExecute = async (
