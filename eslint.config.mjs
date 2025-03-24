@@ -1,4 +1,5 @@
 import eslint from "@eslint/js";
+
 import tseslint from "typescript-eslint";
 
 import {
@@ -20,11 +21,11 @@ export default tseslint.config(
     ],
   },
   eslint.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  tseslint.configs.recommendedTypeChecked,
   {
     languageOptions: {
       parserOptions: {
-        project: true,
+        projectService: true,
         tsconfigRootDir: __dirname,
         // tsconfigRootDir: import.meta.dirname,
       },

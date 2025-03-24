@@ -59,9 +59,9 @@ export class ExecutionSuggester extends SuggestModal<Execution> {
     }
   }
 
-  async onChooseSuggestion(execution: Execution, event: MouseEvent | KeyboardEvent) {
+  onChooseSuggestion(execution: Execution, event: MouseEvent | KeyboardEvent) {
     try {
-      await execution.callback();
+      void execution.callback();
     } catch (error) {
       loggerOnError(error, "Failled to select suggestion.");
     }
