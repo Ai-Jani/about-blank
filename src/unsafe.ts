@@ -19,7 +19,7 @@ export interface UnsafeEmptyView extends View {
   emptyTitleEl: HTMLDivElement;
 }
 
-export const UNSAFE_EMPTY_PROPERTIES: Record<string, keyof UnsafeEmptyView> = {
+export const UNSAFE_EMPTY_PROPS: Record<string, keyof UnsafeEmptyView> = {
   // Property that `leaf.view` of `empty` should have.
   // This is an action list element (div.empty-state-action-list).
   emptyActionListEl: "actionListEl",
