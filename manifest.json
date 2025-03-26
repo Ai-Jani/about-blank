@@ -3,7 +3,7 @@
   "name": "About Blank",
   "version": "0.0.1",
   "minAppVersion": "0.15.0",
-  "description": "Customize the empty file (New Tab) itself a little bit by adding \"Commands\" or \"Open files\". And edit these: \"Icon\", \"Ask before execution\", \"Grouping\", \"Register as a new command\".",
+  "description": "Customize the empty file (New tab) itself a little bit by adding \"Commands\" or \"Open files\". And edit these: \"Icon\", \"Ask before execution\", \"Grouping\", \"Register as a new command\".",
   "author": "Ai-Jani",
   "authorUrl": "https://github.com/Ai-Jani",
   "isDesktopOnly": false

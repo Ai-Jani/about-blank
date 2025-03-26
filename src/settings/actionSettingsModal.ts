@@ -372,7 +372,7 @@ export class ActionSettingsModal extends Modal {
       new Setting(this.contentEl)
         .setName("Display")
         .setDesc(
-          "If enabled, this action will be displayed on the New Tabs (includes 'Quick actions')",
+          "If enabled, this action will be displayed on the New tabs (includes 'Quick actions')",
         )
         .addToggle((toggle) => {
           toggle
