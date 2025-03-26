@@ -53,8 +53,9 @@ import {
 
 import {
   UNSAFE_CSS_CLASSES,
-  UNSAFE_EMPTY_VIEW_PROPERTIES,
+  UNSAFE_EMPTY_PROPERTIES,
   UNSAFE_VIEW_TYPES,
+  UnsafeEmptyActionListEl,
   type UnsafeEmptyView,
 } from "src/unsafe";
 
@@ -211,8 +212,9 @@ export default class AboutBlank extends Plugin {
       if (leaf?.view?.getViewType() !== UNSAFE_VIEW_TYPES.empty) {
         return;
       }
-      const emptyActionListEl = (leaf.view as UnsafeEmptyView)[UNSAFE_EMPTY_VIEW_PROPERTIES.emptyActionListEl];
-      const emptyTitleEl = (leaf.view as UnsafeEmptyView)[UNSAFE_EMPTY_VIEW_PROPERTIES.emptyTitleEL];
+      const emptyActionListEl =
+        (leaf.view as UnsafeEmptyView)[UNSAFE_EMPTY_PROPERTIES.emptyActionListEl] as UnsafeEmptyActionListEl;
+      const emptyTitleEl = (leaf.view as UnsafeEmptyView)[UNSAFE_EMPTY_PROPERTIES.emptyTitleEL] as HTMLDivElement;
       // Expect: emptyActionListEl has `children` (HTMLCollection).
       const childElements = emptyActionListEl
         ? Array.from(emptyActionListEl.children) as HTMLElement[]

@@ -10,12 +10,16 @@ export const UNSAFE_VIEW_TYPES = {
   empty: "empty",
 } as const;
 
+export interface UnsafeEmptyActionListEl extends HTMLDivElement {
+  children: HTMLCollection;
+}
+
 export interface UnsafeEmptyView extends View {
-  actionListEl: HTMLDivElement;
+  actionListEl: UnsafeEmptyActionListEl;
   emptyTitleEl: HTMLDivElement;
 }
 
-export const UNSAFE_EMPTY_VIEW_PROPERTIES = {
+export const UNSAFE_EMPTY_PROPERTIES: Record<string, keyof UnsafeEmptyView> = {
   // Property that `leaf.view` of `empty` should have.
   // This is an action list element (div.empty-state-action-list).
   emptyActionListEl: "actionListEl",
