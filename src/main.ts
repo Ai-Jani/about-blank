@@ -230,7 +230,7 @@ export default class AboutBlank extends Plugin {
       // Expect: emptyActionListEl has `createEl()` method.
       practicalActions.forEach((action) => this.addActionButton(emptyActionListEl, action));
     } catch (error) {
-      loggerOnError(error, "Failed to add buttons in New Tab.\n(About Blank)");
+      loggerOnError(error, "Failed to add buttons in New tab.\n(About Blank)");
     }
   };
 
