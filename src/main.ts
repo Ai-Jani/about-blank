@@ -49,11 +49,12 @@ import {
   COMMANDS,
   CSS_CLASSES,
   CSS_VARS,
-  UNSAFE_PROPERTIES,
-  VIEW_TYPES,
 } from "src/constants";
 
 import {
+  UNSAFE_CSS_CLASSES,
+  UNSAFE_PROPERTIES,
+  UNSAFE_VIEW_TYPES,
   type UnsafeEmptyView,
 } from "src/unsafe";
 
@@ -207,7 +208,7 @@ export default class AboutBlank extends Plugin {
         return;
       }
       const leaf = this.app.workspace.getMostRecentLeaf();
-      if (leaf?.view?.getViewType() !== VIEW_TYPES.empty) {
+      if (leaf?.view?.getViewType() !== UNSAFE_VIEW_TYPES.empty) {
         return;
       }
       const emptyActionListEl = (leaf.view as UnsafeEmptyView)[UNSAFE_PROPERTIES.emptyActionListEl];
@@ -250,7 +251,7 @@ export default class AboutBlank extends Plugin {
     }
     if (this.settings.hideDefaultActions === HIDE_DEFAULT_ACTIONS.close) {
       actionEls = actionEls.filter((elem) => {
-        return !elem.classList.contains(CSS_CLASSES.defaultCloseAction);
+        return !elem.classList.contains(UNSAFE_CSS_CLASSES.defaultCloseAction);
       });
     }
     actionEls.map((elem) => {
@@ -273,7 +274,7 @@ export default class AboutBlank extends Plugin {
     const container = element.createEl(
       "div",
       {
-        cls: `${CSS_CLASSES.defaultEmptyAction} ${CSS_CLASSES.visible} ${CSS_CLASSES.aboutBlankContainer}`,
+        cls: `${UNSAFE_CSS_CLASSES.defaultEmptyAction} ${CSS_CLASSES.visible} ${CSS_CLASSES.aboutBlankContainer}`,
       },
       (elem: Element) => {
         elem.addEventListener("click", () => {

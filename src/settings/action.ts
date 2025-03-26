@@ -50,7 +50,6 @@ import {
 
 import {
   CSS_CLASSES,
-  UNSAFE_PROPERTIES,
 } from "src/constants";
 
 import {
@@ -58,6 +57,7 @@ import {
 } from "src/types";
 
 import {
+  UNSAFE_PROPERTIES,
   type UnsafeApp,
 } from "src/unsafe";
 
