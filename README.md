@@ -72,6 +72,13 @@ This is a community plugin for [Obsidian](https://obsidian.md/).
 - This plugin applies CSS by default to hide the messages and buttons on the "New tab". If the processing for the "New tab" fails to work properly, nothing may be displayed on the "New tab".
 - You can disable "New tab" and "Quick actions" features by turning off the "Add actions to New tabs" setting. This is useful if you only want to use the command-related features or if these features stop working in future versions.
 
+## ToDo
+
+- [ ] Setting how opens the file.
+- [ ] Improve dialog usability.
+- [ ] Add a method to display actions on the "New tab".
+- [ ] Implementing copy/move action functionality.
+
 ## License
 
 This project is licensed under the MIT License, see the LICENSE file for details.
