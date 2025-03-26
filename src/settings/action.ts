@@ -57,7 +57,6 @@ import {
 } from "src/types";
 
 import {
-  UNSAFE_PROPERTIES,
   type UnsafeApp,
 } from "src/unsafe";
 
@@ -292,8 +291,7 @@ export const chooseCommandOrFile = async (
 > => {
   const items = (() => {
     if (kind === ACTION_KINDS.command) {
-      const commands = (app as UnsafeApp)[UNSAFE_PROPERTIES.appCommands.parent];
-      const commandsList = commands[UNSAFE_PROPERTIES.appCommands.commandsList];
+      const commandsList = (app as UnsafeApp).commands.commands;
       return Object.values(commandsList).map((command) => {
         return {
           name: command.name,
@@ -413,10 +411,9 @@ const generateCommandCallback = (
   const { commandName, commandId } = action.content as ContentOfCommand;
 
   const basicCallback = async (): Promise<void> => {
-    const commands = (app as UnsafeApp)[UNSAFE_PROPERTIES.appCommands.parent];
     // Currently, `app.commands.commands.executeCommandById()` returns false
     // if the specified ID does not exist, and true if the execution is successful.
-    const res: boolean = await commands[UNSAFE_PROPERTIES.appCommands.executeById](commandId);
+    const res: boolean = await (app as UnsafeApp).commands.executeCommandById(commandId);
     if (!res) {
       new Notice(`Failed to execute command: ${commandName} (${commandId})`);
     }
