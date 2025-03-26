@@ -55,7 +55,7 @@ import {
 
 import {
   type UnsafeEmptyView,
-} from "src/types";
+} from "src/unsafe";
 
 // =============================================================================
 

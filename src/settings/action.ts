@@ -54,9 +54,12 @@ import {
 } from "src/constants";
 
 import {
-  type UnsafeApp,
   type ValuesOf,
 } from "src/types";
+
+import {
+  type UnsafeApp,
+} from "src/unsafe";
 
 // =============================================================================
 
