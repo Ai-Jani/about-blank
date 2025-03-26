@@ -4,10 +4,6 @@ import {
   type View,
 } from "obsidian";
 
-export type EmptyObjectType = Record<string, never>;
-
-export type EmptyArrayType = never[];
-
 // `const obj = { key1: 46, key2: "moji" }` -> `ValuesOf<typeof obj>` -> `46 | "moji"`
 export type ValuesOf<T> = T[keyof T];
 
