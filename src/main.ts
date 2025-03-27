@@ -30,7 +30,7 @@ import {
 
 import hasClassElements from "src/utils/hasClassElements";
 
-import hasDuplicates from "./utils/hasDuplicates";
+import hasDuplicates from "src/utils/hasDuplicates";
 
 import isFalsyString from "src/utils/isFalsyString";
 
@@ -68,12 +68,14 @@ export default class AboutBlank extends Plugin {
   async onload() {
     try {
       await this.loadSettingsShallow();
-      this.app.workspace.onLayoutReady(this.lazyLoad);
+      this.app.workspace.onLayoutReady(this.backBurner);
 
       if (this.settings.addActionsToNewTabs) {
         this.registerEvent(
           this.app.workspace.on("layout-change", this.addButtonsEventHandler),
         );
+        // Reset for lazy loading
+        this.closeAllNewTabs();
       } else {
         document.documentElement.style.setProperty(
           CSS_VARS.emptyStateDisplay,
@@ -87,7 +89,7 @@ export default class AboutBlank extends Plugin {
     }
   }
 
-  lazyLoad = async () => {
+  backBurner = async () => {
     try {
       await this.loadSettingsDeep();
       const allActions = allActionsBloodline(this.settings.actions);
@@ -119,6 +121,8 @@ export default class AboutBlank extends Plugin {
 
   saveSettings = async () => {
     await this.saveData(this.settings);
+    // Reset all New tabs
+    this.closeAllNewTabs();
   };
 
   // ---------------------------------------------------------------------------
@@ -201,6 +205,16 @@ export default class AboutBlank extends Plugin {
 
   // ---------------------------------------------------------------------------
 
+  closeAllNewTabs = (): void => {
+    const emptyLeaves = this.app.workspace.getLeavesOfType(UNSAFE_VIEW_TYPES.empty);
+    if (emptyLeaves.length === 0) {
+      return;
+    }
+    emptyLeaves.forEach((leaf) => {
+      leaf.detach();
+    });
+  };
+
   private addButtonsEventHandler = (): void => {
     if (!this.settings.addActionsToNewTabs) {
       return;
@@ -209,10 +223,10 @@ export default class AboutBlank extends Plugin {
     if (leaf?.view?.getViewType() !== UNSAFE_VIEW_TYPES.empty) {
       return;
     }
-    this.addButtonsIfNewTab(leaf.view as UnsafeEmptyView);
+    this.addButtonsToNewTab(leaf.view as UnsafeEmptyView);
   };
 
-  addButtonsIfNewTab = (emptyView: UnsafeEmptyView): void => {
+  addButtonsToNewTab = (emptyView: UnsafeEmptyView): void => {
     try {
       const emptyActionListEl = emptyView.actionListEl;
       const emptyTitleEl = emptyView.emptyTitleEl;
