@@ -72,7 +72,7 @@ export default class AboutBlank extends Plugin {
 
       if (this.settings.addActionsToNewTabs) {
         this.registerEvent(
-          this.app.workspace.on("layout-change", this.addButtonsIfNewTab),
+          this.app.workspace.on("layout-change", this.addButtonsEventHandler),
         );
       } else {
         document.documentElement.style.setProperty(
@@ -201,17 +201,21 @@ export default class AboutBlank extends Plugin {
 
   // ---------------------------------------------------------------------------
 
-  private addButtonsIfNewTab = (): void => {
+  private addButtonsEventHandler = (): void => {
+    if (!this.settings.addActionsToNewTabs) {
+      return;
+    }
+    const leaf = this.app.workspace.getMostRecentLeaf();
+    if (leaf?.view?.getViewType() !== UNSAFE_VIEW_TYPES.empty) {
+      return;
+    }
+    this.addButtonsIfNewTab(leaf.view as UnsafeEmptyView);
+  };
+
+  addButtonsIfNewTab = (emptyView: UnsafeEmptyView): void => {
     try {
-      if (!this.settings.addActionsToNewTabs) {
-        return;
-      }
-      const leaf = this.app.workspace.getMostRecentLeaf();
-      if (leaf?.view?.getViewType() !== UNSAFE_VIEW_TYPES.empty) {
-        return;
-      }
-      const emptyActionListEl = (leaf.view as UnsafeEmptyView).actionListEl;
-      const emptyTitleEl = (leaf.view as UnsafeEmptyView).emptyTitleEl;
+      const emptyActionListEl = emptyView.actionListEl;
+      const emptyTitleEl = emptyView.emptyTitleEl;
       const childElements = emptyActionListEl
         ? Array.from(emptyActionListEl.children) as HTMLElement[]
         : null;
