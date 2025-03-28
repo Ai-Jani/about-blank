@@ -25,13 +25,12 @@ import {
 
 import isBool from "src/utils/isBool";
 
-import loggerOnError from "src/utils/loggerOnError";
-
 import {
   objectDeepCopy,
 } from "src/utils/objectDeepCopy";
 
 import {
+  loggerOnError,
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
 

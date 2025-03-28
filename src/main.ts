@@ -41,9 +41,11 @@ import isFalsyString from "src/utils/isFalsyString";
 
 import isPlainObject from "src/utils/isPlainObject";
 
-import loggerOnError from "src/utils/loggerOnError";
-
 import updateProp from "src/utils/updateProp";
+
+import {
+  loggerOnError,
+} from "src/commons";
 
 import {
   COMMANDS,

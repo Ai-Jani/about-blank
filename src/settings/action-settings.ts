@@ -38,9 +38,8 @@ import {
 
 import isFalsyString from "src/utils/isFalsyString";
 
-import loggerOnError from "src/utils/loggerOnError";
-
 import {
+  loggerOnError,
   setFakeIconToExButtonIfEmpty,
   setFakeIconToIconText,
 } from "src/commons";

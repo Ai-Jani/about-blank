@@ -36,13 +36,12 @@ import {
 
 import isFalsyString from "src/utils/isFalsyString";
 
-import loggerOnError from "src/utils/loggerOnError";
-
 import {
   objectDeepCopy,
 } from "src/utils/objectDeepCopy";
 
 import {
+  loggerOnError,
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
 
