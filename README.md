@@ -11,7 +11,8 @@ This is a community plugin for [Obsidian](https://obsidian.md/).
     - [Register as a new command](#setting---register-as-a-command)
 
 > [!WARNING]
-> The "New tab" feature relies on undocumented Obsidian behavior and may stop working in future versions. However, the command-related features should remain usable as it is designed independently.
+> The "New tab" feature relies on undocumented Obsidian behavior and may stop working in future versions. However, the command-related features should remain usable as it is designed independently.  
+> See [MaintenanceReport](docs/MaintenanceReport.md) for compatibility with Obsidian versions.
 
 ## Features
 
