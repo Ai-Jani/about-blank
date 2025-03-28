@@ -3,6 +3,10 @@ import {
 } from "obsidian";
 
 import {
+  v4 as uuidv4,
+} from "uuid";
+
+import {
   chooseKindAndContent,
 } from "src/settings/action-settings";
 
@@ -21,8 +25,8 @@ import {
 } from "src/utils/objectDeepCopy";
 
 import {
-  genNewCmdId,
-} from "src/commons";
+  LOOP_MAX,
+} from "src/constants";
 
 import {
   type ValuesOf,
@@ -184,4 +188,35 @@ export const createNewAction = async (
   newAction.content = content;
 
   return newAction;
+};
+
+// =============================================================================
+
+export const allActionsBloodline = (actions: Action[]): Action[] => {
+  return actions.flatMap((action) => {
+    if (action.content.kind === ACTION_KINDS.group) {
+      return [action, ...allActionsBloodline(action.content.actions)];
+    }
+    return action;
+  });
+};
+
+// If omit the `settings` argument, it will simply return the UUID.
+// If a `settings` is provided, it checks for duplicates and returns a unique ID.
+export const genNewCmdId = (settings?: AboutBlankSettings): string => {
+  if (settings === undefined) {
+    return uuidv4();
+  }
+
+  // Unique ID
+  const allActions = allActionsBloodline(settings.actions);
+  const currentCmdIds = allActions.map((action) => action.cmdId);
+  for (let i = 0; i < LOOP_MAX; i++) {
+    const candidate = uuidv4();
+    if (!currentCmdIds.includes(candidate)) {
+      return candidate;
+    }
+  }
+  console.warn("About Blank: Failed to generate a unique command ID.");
+  return newActionClone().cmdId;
 };

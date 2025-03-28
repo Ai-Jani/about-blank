@@ -10,7 +10,9 @@ import {
   ACTION_KINDS,
   ACTION_KINDS_ICON,
   ACTION_KINDS_NAME,
+  allActionsBloodline,
   type ContentOfGroup,
+  genNewCmdId,
 } from "src/settings/action-basic";
 
 import {
@@ -41,8 +43,6 @@ import {
 } from "src/utils/objectDeepCopy";
 
 import {
-  allActionsBloodline,
-  genNewCmdId,
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
 

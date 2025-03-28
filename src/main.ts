@@ -9,6 +9,8 @@ import {
   type Action,
   ACTION_KINDS,
   actionPropTypeCheck,
+  allActionsBloodline,
+  genNewCmdId,
   NEW_ACTION,
   newActionClone,
 } from "src/settings/action-basic";
@@ -42,11 +44,6 @@ import isPlainObject from "src/utils/isPlainObject";
 import loggerOnError from "src/utils/loggerOnError";
 
 import updateProp from "src/utils/updateProp";
-
-import {
-  allActionsBloodline,
-  genNewCmdId,
-} from "src/commons";
 
 import {
   COMMANDS,
