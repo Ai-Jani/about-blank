@@ -7,9 +7,12 @@ import {
 
 import {
   type Action,
+} from "src/settings/action-basic";
+
+import {
   makeSettingsActionsHeader,
   makeSettingsActionsList,
-} from "src/settings/action-basic";
+} from "src/settings/action-settings";
 
 import {
   HIDE_DEFAULT_ACTIONS,

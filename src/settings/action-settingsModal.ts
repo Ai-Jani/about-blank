@@ -10,11 +10,14 @@ import {
   ACTION_KINDS,
   ACTION_KINDS_ICON,
   ACTION_KINDS_NAME,
-  chooseContent,
   type ContentOfGroup,
+} from "src/settings/action-basic";
+
+import {
+  chooseContent,
   makeSettingsActionsHeader,
   makeSettingsActionsList,
-} from "src/settings/action-basic";
+} from "src/settings/action-settings";
 
 import {
   type AboutBlankSettings,
