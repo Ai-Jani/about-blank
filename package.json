@@ -1,7 +1,7 @@
 {
   "name": "about-blank",
   "version": "0.0.1",
-  "description": "Customize the empty file (New tab) itself a little bit by adding \"Commands\" or \"Open files\". And edit these: \"Icon\", \"Ask before execution\", \"Grouping\", \"Register as a new command\".",
+  "description": "Customize the empty file (New tab) itself a little bit by adding \"Commands\" or \"Open files\". And edit these:\"Grouping\", \"Set icon\", \"Ask before execution\", \"Register as a new command\".",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
