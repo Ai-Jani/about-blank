@@ -14,7 +14,7 @@ import {
   type ContentOfGroup,
   makeSettingsActionsHeader,
   makeSettingsActionsList,
-} from "src/settings/action";
+} from "src/settings/action-basic";
 
 import {
   type AboutBlankSettings,

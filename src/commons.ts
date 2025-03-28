@@ -6,7 +6,7 @@ import {
   type Action,
   ACTION_KINDS,
   newActionClone,
-} from "src/settings/action";
+} from "src/settings/action-basic";
 
 import {
   type AboutBlankSettings,

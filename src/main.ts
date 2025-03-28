@@ -14,7 +14,7 @@ import {
   newActionClone,
   type PracticalAction,
   toPracticalAction,
-} from "src/settings/action";
+} from "src/settings/action-basic";
 
 import {
   HIDE_DEFAULT_ACTIONS,
