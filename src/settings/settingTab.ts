@@ -7,9 +7,12 @@ import {
 
 import {
   type Action,
+} from "src/settings/action-basic";
+
+import {
   makeSettingsActionsHeader,
   makeSettingsActionsList,
-} from "src/settings/action";
+} from "src/settings/action-settings";
 
 import {
   HIDE_DEFAULT_ACTIONS,
@@ -22,13 +25,12 @@ import {
 
 import isBool from "src/utils/isBool";
 
-import loggerOnError from "src/utils/loggerOnError";
-
 import {
   objectDeepCopy,
 } from "src/utils/objectDeepCopy";
 
 import {
+  loggerOnError,
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
 

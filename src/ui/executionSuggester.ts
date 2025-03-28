@@ -4,7 +4,9 @@ import {
   SuggestModal,
 } from "obsidian";
 
-import loggerOnError from "src/utils/loggerOnError";
+import {
+  loggerOnError,
+} from "src/commons";
 
 // =============================================================================
 

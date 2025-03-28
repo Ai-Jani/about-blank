@@ -6,7 +6,9 @@ import {
   type AboutBlankSettingTab,
 } from "src/settings/settingTab";
 
-import loggerOnError from "src/utils/loggerOnError";
+import {
+  loggerOnError,
+} from "src/commons";
 
 import {
   type ValuesOf,

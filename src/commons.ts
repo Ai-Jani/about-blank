@@ -1,51 +1,28 @@
 import {
-  v4 as uuidv4,
-} from "uuid";
-
-import {
-  type Action,
-  ACTION_KINDS,
-  newActionClone,
-} from "src/settings/action";
-
-import {
-  type AboutBlankSettings,
-} from "src/settings/settingTab";
+  Notice,
+} from "obsidian";
 
 import {
   CSS_CLASSES,
-  LOOP_MAX,
 } from "src/constants";
 
 // =============================================================================
 
-export const allActionsBloodline = (actions: Action[]): Action[] => {
-  return actions.flatMap((action) => {
-    if (action.content.kind === ACTION_KINDS.group) {
-      return [action, ...allActionsBloodline(action.content.actions)];
-    }
-    return action;
-  });
-};
-
-// If omit the `settings` argument, it will simply return the UUID.
-// If a `settings` is provided, it checks for duplicates and returns a unique ID.
-export const genNewCmdId = (settings?: AboutBlankSettings): string => {
-  if (settings === undefined) {
-    return uuidv4();
+export const loggerOnError = (
+  error: any,
+  noticeMessage: string = "",
+  noticeDuration: number | undefined = undefined,
+) => {
+  if (!Number.isFinite(noticeDuration)) {
+    noticeDuration = undefined;
   }
-
-  // Unique ID
-  const allActions = allActionsBloodline(settings.actions);
-  const currentCmdIds = allActions.map((action) => action.cmdId);
-  for (let i = 0; i < LOOP_MAX; i++) {
-    const candidate = uuidv4();
-    if (!currentCmdIds.includes(candidate)) {
-      return candidate;
-    }
+  if (typeof noticeMessage === "string" && 0 < noticeMessage.length) {
+    new Notice(noticeMessage, noticeDuration);
   }
-  console.warn("About Blank: Failed to generate a unique command ID.");
-  return newActionClone().cmdId;
+  const errorObj: Error = error instanceof Error
+    ? error
+    : new Error(String(error));
+  console.error("Error on About Blank:", errorObj);
 };
 
 // =============================================================================

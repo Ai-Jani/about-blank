@@ -10,11 +10,16 @@ import {
   ACTION_KINDS,
   ACTION_KINDS_ICON,
   ACTION_KINDS_NAME,
-  chooseContent,
+  allActionsBloodline,
   type ContentOfGroup,
+  genNewCmdId,
+} from "src/settings/action-basic";
+
+import {
+  chooseContent,
   makeSettingsActionsHeader,
   makeSettingsActionsList,
-} from "src/settings/action";
+} from "src/settings/action-settings";
 
 import {
   type AboutBlankSettings,
@@ -31,15 +36,12 @@ import {
 
 import isFalsyString from "src/utils/isFalsyString";
 
-import loggerOnError from "src/utils/loggerOnError";
-
 import {
   objectDeepCopy,
 } from "src/utils/objectDeepCopy";
 
 import {
-  allActionsBloodline,
-  genNewCmdId,
+  loggerOnError,
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
 
