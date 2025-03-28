@@ -9,7 +9,7 @@ import {
 
 import {
   ActionSettingsModal,
-} from "src/settings/actionSettingsModal";
+} from "src/settings/action-settingsModal";
 
 import {
   type AboutBlankSettings,
