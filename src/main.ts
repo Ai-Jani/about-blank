@@ -9,12 +9,15 @@ import {
   type Action,
   ACTION_KINDS,
   actionPropTypeCheck,
-  groupingActions,
   NEW_ACTION,
   newActionClone,
+} from "src/settings/action-basic";
+
+import {
+  groupingActions,
   type PracticalAction,
   toPracticalAction,
-} from "src/settings/action-basic";
+} from "src/settings/action-edit";
 
 import {
   HIDE_DEFAULT_ACTIONS,
