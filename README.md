@@ -1,7 +1,7 @@
 # About Blank
 
 This is a community-plugin for [Obsidian](https://obsidian.md/).
-- Customize the empty file view (New tab) *itself* a little bit by adding "Actions":
+- Customize the empty file view (New tab) *itself* a little bit by adding [Actions](#actions):
     - Command
     - Open file
     - [Grouped action](#grouped-action)
@@ -20,7 +20,7 @@ This is a community-plugin for [Obsidian](https://obsidian.md/).
 
 - When there are no tabs to display, this plugin just shows the default "New tab". So, it does NOT provide "Custom view" or other notes.
     - This means a truly empty file. For example, if you open a new file in this state, the "New tab" will automatically disappear.
-- In exchange, the customization options are somewhat limited. You can assign "[Actions](#actions)".
+- In exchange, the customization options are somewhat limited. You can assign [Actions](#actions).
 - There is also a function to hide messages and buttons that are displayed by default.
 
 ![Overview](docs/assets/00500--overview.png)
