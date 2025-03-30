@@ -1,12 +1,12 @@
 {
   "name": "about-blank",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Customize the empty file (New tab) itself a little bit by adding \"Commands\" or \"Open files\". And edit these: Grouping, Set icon, Ask before execution, Register as a new command.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
     "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-    "version": "node version-bump.mjs && git add manifest.json versions.json",
+    "version": "node version-bump.mjs",
     "format": "dprint fmt",
     "lint": "eslint --fix .",
     "mdlint": "markdownlint-cli2 --fix \"**/*.md\""
