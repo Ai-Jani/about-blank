@@ -125,15 +125,15 @@ export const ACTION_INFO_ICON: { [key in keyof Partial<Action>]: string; } = {
 // =============================================================================
 
 export const actionPropTypeCheck: {
-  [key in keyof Action]: (value: any) => boolean;
+  [key in keyof Action]: (value: unknown) => boolean;
 } = {
-  icon: (value: any) => typeof value === "string",
-  name: (value: any) => typeof value === "string",
-  ask: (value: any) => isBool(value),
-  cmd: (value: any) => isBool(value),
-  cmdId: (value: any) => typeof value === "string",
-  display: (value: any) => isBool(value),
-  content: (value: any) => {
+  icon: (value: unknown) => typeof value === "string",
+  name: (value: unknown) => typeof value === "string",
+  ask: (value: unknown) => isBool(value),
+  cmd: (value: unknown) => isBool(value),
+  cmdId: (value: unknown) => typeof value === "string",
+  display: (value: unknown) => isBool(value),
+  content: (value: unknown) => {
     const contentValue = value as ContentType;
     if (contentValue.kind === ACTION_KINDS.command) {
       const { commandName, commandId } = contentValue;

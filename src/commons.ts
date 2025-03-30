@@ -27,6 +27,12 @@ export const loggerOnError = (
 
 // =============================================================================
 
+export const adjustInt = (num: number): number => {
+  return Math.trunc(num);
+};
+
+// =============================================================================
+
 // If the `setIcon()` of `Setting.addExtraButton()` receives an invalid value,
 // it will fail to set the icon, resulting in inconveniences such as the button
 // size becoming extremely small.
