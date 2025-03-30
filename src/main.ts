@@ -114,7 +114,10 @@ export default class AboutBlank extends Plugin {
     }
   };
 
-  onunload() {}
+  onunload() {
+    // Reset all New tabs
+    this.closeAllNewTabs();
+  }
 
   // ---------------------------------------------------------------------------
 
