@@ -1,6 +1,6 @@
 # About Blank
 
-This is a community plugin for [Obsidian](https://obsidian.md/).
+This is a community-plugin for [Obsidian](https://obsidian.md/).
 - Customize the empty file view (New tab) *itself* a little bit by adding "Actions":
     - Command
     - Open file
@@ -69,6 +69,7 @@ This is a community plugin for [Obsidian](https://obsidian.md/).
 
 ## Notes
 
+- If you are using a community-theme that changes the "New tab" style, the display may be distorted.
 - If commands are not properly reflected after registering or unregistering them, please reload Obsidian.
 - This plugin applies CSS by default to hide the messages and buttons on the "New tab". If the processing for the "New tab" fails to work properly, nothing may be displayed on the "New tab".
 - You can disable "New tab" and "Quick actions" features by turning off the "Add actions to New tabs" setting. This is useful if you only want to use the command-related features or if these features stop working in future versions.

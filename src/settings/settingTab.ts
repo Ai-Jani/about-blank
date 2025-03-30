@@ -30,6 +30,7 @@ import {
 } from "src/utils/objectDeepCopy";
 
 import {
+  adjustInt,
   loggerOnError,
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
@@ -48,6 +49,7 @@ import {
 
 export interface AboutBlankSettings {
   addActionsToNewTabs: boolean;
+  iconTextGap: number;
   hideMessage: boolean;
   hideDefaultActions: ValuesOf<typeof HIDE_DEFAULT_ACTIONS>;
   quickActions: boolean;
@@ -57,6 +59,7 @@ export interface AboutBlankSettings {
 
 export const DEFAULT_SETTINGS: AboutBlankSettings = {
   addActionsToNewTabs: true,
+  iconTextGap: 10,
   hideMessage: false,
   hideDefaultActions: HIDE_DEFAULT_ACTIONS.not,
   quickActions: false,
@@ -64,20 +67,42 @@ export const DEFAULT_SETTINGS: AboutBlankSettings = {
   actions: [],
 } as const;
 
+export const DEFAULT_SETTINGS_LIMIT: Partial<
+  {
+    [key in keyof AboutBlankSettings]: { min: number; max: number; };
+  }
+> = {
+  iconTextGap: {
+    min: 0,
+    max: 50,
+  },
+} as const;
+
 // =============================================================================
 
 export const settingsPropTypeCheck: {
-  [key in keyof AboutBlankSettings]: (value: any) => boolean;
+  [key in keyof AboutBlankSettings]: (value: unknown) => boolean;
 } = {
-  addActionsToNewTabs: (value: any) => isBool(value),
-  hideMessage: (value: any) => isBool(value),
-  hideDefaultActions: (value: any) => {
-    const correctValues: any[] = Object.values(HIDE_DEFAULT_ACTIONS);
+  addActionsToNewTabs: (value: unknown) => isBool(value),
+  iconTextGap: (value: unknown) => {
+    if (!Number.isFinite(value)) {
+      return false;
+    }
+    const num = value as number;
+    const limit = DEFAULT_SETTINGS_LIMIT.iconTextGap;
+    if (!limit) {
+      return false;
+    }
+    return limit.min <= num && num <= limit.max;
+  },
+  hideMessage: (value: unknown) => isBool(value),
+  hideDefaultActions: (value: unknown) => {
+    const correctValues: unknown[] = Object.values(HIDE_DEFAULT_ACTIONS);
     return correctValues.includes(value);
   },
-  quickActions: (value: any) => isBool(value),
-  quickActionsIcon: (value: any) => typeof value === "string",
-  actions: (value: any) => Array.isArray(value),
+  quickActions: (value: unknown) => isBool(value),
+  quickActionsIcon: (value: unknown) => typeof value === "string",
+  actions: (value: unknown) => Array.isArray(value),
 };
 
 // =============================================================================
@@ -153,11 +178,45 @@ export class AboutBlankSettingTab extends PluginSettingTab {
                 );
               }
               await this.plugin.saveSettings();
+              this.display();
             } catch (error) {
               loggerOnError(error, "Error in settings.\n(About Blank)");
             }
           });
       });
+    if (this.plugin.settings.addActionsToNewTabs) {
+      const limit = DEFAULT_SETTINGS_LIMIT.iconTextGap;
+      if (!limit) {
+        return;
+      }
+      new Setting(this.containerEl)
+        .setName("Icon-text gap")
+        .setDesc(
+          `The gap between the icon and text of the action buttons. Some community themes may require adjusting this value (e.g. Border theme recommends 0px). <${limit.min}px - ${limit.max}px (default: ${DEFAULT_SETTINGS.iconTextGap}px)>`,
+        )
+        .addSlider((slider) => {
+          slider
+            .setLimits(limit.min, limit.max, 1)
+            .setValue(adjustInt(this.plugin.settings.iconTextGap))
+            .setDynamicTooltip()
+            .onChange(async (value) => {
+              try {
+                const num = adjustInt(value);
+                if (!settingsPropTypeCheck.iconTextGap(num)) {
+                  return;
+                }
+                this.plugin.settings.iconTextGap = num;
+                await this.plugin.saveSettings();
+                document.documentElement.style.setProperty(
+                  CSS_VARS.iconTextGap,
+                  `${num}px`,
+                );
+              } catch (error) {
+                loggerOnError(error, "Error in settings.\n(About Blank)");
+              }
+            });
+        });
+    }
   };
 
   private makeSettingsQuickActions = (): void => {

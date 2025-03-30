@@ -44,6 +44,7 @@ import isPlainObject from "src/utils/isPlainObject";
 import updateProp from "src/utils/updateProp";
 
 import {
+  adjustInt,
   loggerOnError,
 } from "src/commons";
 
@@ -75,6 +76,10 @@ export default class AboutBlank extends Plugin {
       if (this.settings.addActionsToNewTabs) {
         this.registerEvent(
           this.app.workspace.on("layout-change", this.addButtonsEventHandler),
+        );
+        document.documentElement.style.setProperty(
+          CSS_VARS.iconTextGap,
+          `${adjustInt(this.settings.iconTextGap)}px`,
         );
         // Reset for lazy loading
         this.closeAllNewTabs();
@@ -109,7 +114,10 @@ export default class AboutBlank extends Plugin {
     }
   };
 
-  onunload() {}
+  onunload() {
+    // Reset all New tabs
+    this.closeAllNewTabs();
+  }
 
   // ---------------------------------------------------------------------------
 

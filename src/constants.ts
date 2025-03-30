@@ -27,4 +27,5 @@ export const CSS_CLASSES = {
 export const CSS_VARS = {
   emptyStateDisplay: "--about-blank-empty-state-display",
   defaultDisplayValue: "block",
+  iconTextGap: "--about-blank-icon-text-gap",
 } as const;

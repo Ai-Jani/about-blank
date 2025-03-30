@@ -1,5 +1,6 @@
 :root {
   --about-blank-empty-state-display: none;
+  --about-blank-icon-text-gap: 10px;
 }
 
 .workspace-split.mod-root .empty-state-action:not(.about-blank-visible),
@@ -15,7 +16,7 @@
 }
 
 .about-blank-button-container:has(.svg-icon) .about-blank-button {
-  padding-left: 10px;
+  padding-left: var(--about-blank-icon-text-gap);
 }
 
 .about-blank-cta-ex-button {
