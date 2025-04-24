@@ -142,7 +142,7 @@ export class AboutBlankSettingTab extends PluginSettingTab {
         true,
         null,
         "Actions",
-        "These actions can be added to New tabs.",
+        "These actions can be added to the empty file view (new tab).",
       );
       makeSettingsActionsList(
         this.containerEl,
@@ -159,9 +159,9 @@ export class AboutBlankSettingTab extends PluginSettingTab {
 
   private makeSettingsAddActions = (): void => {
     new Setting(this.containerEl)
-      .setName("Add actions to New tabs")
+      .setName("Add actions to the empty file view (new tab)")
       .setDesc(
-        "If enabled, the 'Actions' will be added to New tabs. After changing this setting, require to reload Obsidian.",
+        "If enabled, the \"Actions\" will be added to the empty file view (new tab). After changing this setting, require to reload Obsidian.",
       )
       .addToggle((toggle) => {
         toggle
@@ -223,7 +223,9 @@ export class AboutBlankSettingTab extends PluginSettingTab {
     const settingItem = new Setting(this.containerEl);
     settingItem
       .setName("Quick actions")
-      .setDesc("Actions to be added to New tabs are compiled into suggesters and registered as commands in Obsidian.");
+      .setDesc(
+        "Actions to be added to the empty file view (new tab) are compiled into suggesters and registered as commands in Obsidian.",
+      );
     if (this.plugin.settings.quickActions === true) {
       settingItem
         .addExtraButton((button) => {

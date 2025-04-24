@@ -201,7 +201,7 @@ export default class AboutBlank extends Plugin {
         cmdId: COMMANDS.quickActions.id,
       },
       this.settings.actions.filter((action) => action.display === true),
-      "About Blank: Quick Actions",
+      `About Blank: ${COMMANDS.quickActions.name}`,
     );
     if (registerAction === undefined) {
       return;
@@ -258,7 +258,7 @@ export default class AboutBlank extends Plugin {
       // Expect: emptyActionListEl has `createEl()` method.
       practicalActions.forEach((action) => this.addActionButton(emptyActionListEl, action));
     } catch (error) {
-      loggerOnError(error, "Failed to add buttons in New tab.\n(About Blank)");
+      loggerOnError(error, "Failed to add buttons in the empty file view (new tab).\n(About Blank)");
     }
   };
 

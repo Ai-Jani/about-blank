@@ -374,7 +374,7 @@ export class ActionSettingsModal extends Modal {
       new Setting(this.contentEl)
         .setName("Display")
         .setDesc(
-          "If enabled, this action will be displayed on the New tabs (includes 'Quick actions')",
+          "If enabled, this action will be displayed on the empty file view (new tab) and \"Quick actions\".",
         )
         .addToggle((toggle) => {
           toggle
@@ -443,7 +443,7 @@ export class ActionSettingsModal extends Modal {
     if (this.modAction.content.kind === ACTION_KINDS.group && this.saveNotice) {
       new Setting(this.contentEl)
         .setClass(CSS_CLASSES.settingActionSaveNotice)
-        .setDesc("Child action changes require 'SAVE' in parents.");
+        .setDesc("Child action changes require \"Save\" in parents.");
     }
   };
 }

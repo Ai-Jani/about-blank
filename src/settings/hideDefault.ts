@@ -38,7 +38,7 @@ export const makeSettingsHideDefaults = (
 ): void => {
   new Setting(elem)
     .setName("Hide message")
-    .setDesc("This hides the message in New tabs (e.g. 'No file is open').")
+    .setDesc("This hides the message in the empty file view (new tab). Example: \"No file is open\".")
     .addToggle((toggle) => {
       toggle
         .setValue(page.plugin.settings.hideMessage)
@@ -53,7 +53,9 @@ export const makeSettingsHideDefaults = (
     });
   new Setting(elem)
     .setName("Hide default actions")
-    .setDesc("This hides the default actions in New tabs (e.g. 'Create new note', 'Close').")
+    .setDesc(
+      "This hides the default actions in the empty file view (new tab). Example: \"Create new note\", \"Close\".",
+    )
     .addDropdown((dropdown) => {
       dropdown
         .addOptions(HIDE_DEFAULT_ACTIONS_NAME)
