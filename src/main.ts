@@ -201,7 +201,7 @@ export default class AboutBlank extends Plugin {
         cmdId: COMMANDS.quickActions.id,
       },
       this.settings.actions.filter((action) => action.display === true),
-      "About Blank: Quick Actions",
+      `About Blank: ${COMMANDS.quickActions.name}`,
     );
     if (registerAction === undefined) {
       return;
