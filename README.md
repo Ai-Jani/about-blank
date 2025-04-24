@@ -81,12 +81,12 @@ This is a community-plugin for [Obsidian](https://obsidian.md/).
 - [ ] Add a method to display actions on the "New tab".
 - [ ] Implementing copy/move action functionality.
 
-## License
-
-This project is licensed under the MIT License, see the LICENSE file for details.
-
 ## Dependencies
 
 This project uses the following open-source libraries:
 
 - [uuid](https://github.com/uuidjs/uuid) - MIT License
+
+## License
+
+This project is licensed under the MIT License, see the LICENSE file for details.

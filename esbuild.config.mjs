@@ -8,6 +8,16 @@ if you want to view the source, please visit the github repository of this plugi
 */
 `;
 
+// Add information on dependent packages with no comments on licences.
+// (they cannot be automatically licensed in esbuild)
+const footer = `/*
+Dependencies and their licenses:
+- uuid (https://github.com/uuidjs/uuid):
+  - version: 11.1.0
+  - authors: Robert Kieffer and other contributors
+  - license: MIT
+*/`;
+
 const prod = process.argv[2] === "production";
 
 const context = await esbuild.context({
@@ -39,6 +49,10 @@ const context = await esbuild.context({
   treeShaking: true,
   outfile: "main.js",
   minify: prod,
+  legalComments: "eof",
+  footer: {
+    js: footer,
+  },
 });
 
 if (prod) {
