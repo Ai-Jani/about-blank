@@ -1,8 +1,14 @@
+/*  ## Root */
+
+/*  - Unique CSS variables */
 :root {
   --about-blank-empty-state-display: none;
   --about-blank-icon-text-gap: 10px;
 }
 
+/*  ## Empty file view */
+
+/*  - Elements of the empty file view are in principle hidden and controlled by unique variables. */
 .workspace-split.mod-root .empty-state-action:not(.about-blank-visible),
 .workspace-split.mod-root .empty-state-title:not(.about-blank-visible) {
   display: var(--about-blank-empty-state-display);
@@ -19,28 +25,20 @@
   padding-left: var(--about-blank-icon-text-gap);
 }
 
+/*  ## UI components */
+
+/*  - Apply CTA to extra buttons. */
 .about-blank-cta-ex-button {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
 }
-
 .about-blank-cta-ex-button.clickable-icon:hover {
   opacity: unset;
   color: unset;
   background-color: var(--interactive-accent-hover);
 }
 
-.about-blank-fake-ex-button {
-  background-color: var(--interactive-normal);
-  box-shadow: var(--input-shadow);
-}
-
-.about-blank-fake-icon {
-  height: var(--icon-size);
-  width: var(--icon-size);
-  stroke-width: var(--icon-stroke);
-}
-
+/*  - Box to display icon text (similar to an extra button). */
 .about-blank-icon-text {
   padding: var(--size-2-2);
   display: flex;
@@ -48,7 +46,7 @@
   justify-content: center;
   border-radius: var(--clickable-icon-radius);
 }
-
+/*  - Among icon text, those representing the icon of the action. */
 .about-blank-action-icon-text {
   padding: var(--size-2-2);
   display: flex;
@@ -58,15 +56,26 @@
   padding-right: var(--size-2-3);
   margin-right: var(--size-2-3);
 }
-
+/*  - Class for giving CTA to icon text. */
 .about-blank-cta-icon {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
 }
 
-.about-blank-icon-height-adjuster {
-  height: var(--input-height);
+/*  - Apply styles to extra buttons that fail to set icons. */
+.about-blank-fake-ex-button {
+  background-color: var(--interactive-normal);
+  box-shadow: var(--input-shadow);
 }
+
+/*  - Fake icons set on extra buttons and icon text that fail to set icons. */
+.about-blank-fake-icon {
+  height: var(--icon-size);
+  width: var(--icon-size);
+  stroke-width: var(--icon-stroke);
+}
+
+/*  ## Settings */
 
 .is-phone .about-blank-setting-action-header {
   display: flex !important;
@@ -128,4 +137,11 @@
 
 .about-blank-setting-action-save-notice .setting-item-control {
   display: none;
+}
+
+/*  - This class is used to prevent the height per action from fluctuating when "Switch info" is performed.
+      Currently, the highest component is the "text box", so by setting this height,
+      it will always be displayed at that height. */
+.about-blank-icon-height-adjuster {
+  height: var(--input-height);
 }
