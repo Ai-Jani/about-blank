@@ -120,7 +120,7 @@ export class StringSuggesterAsync extends SuggestModal<SuggesterType> {
         });
       });
     } catch (error) {
-      this.errorHandler(error, "Failled to get suggestions.");
+      this.errorHandler(error, "Failed to get suggestions.");
       return [];
     }
   }
@@ -129,7 +129,7 @@ export class StringSuggesterAsync extends SuggestModal<SuggesterType> {
     try {
       elem.createEl("div", { text: item.name });
     } catch (error) {
-      this.errorHandler(error, "Failled to render suggestion.");
+      this.errorHandler(error, "Failed to render suggestion.");
     }
   }
 
@@ -147,7 +147,7 @@ export class StringSuggesterAsync extends SuggestModal<SuggesterType> {
       });
       this.close();
     } catch (error) {
-      this.errorHandler(error, "Failled to select suggestion.");
+      this.errorHandler(error, "Failed to select suggestion.");
     }
   }
 }

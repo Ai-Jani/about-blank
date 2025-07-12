@@ -8,7 +8,7 @@ if you want to view the source, please visit the github repository of this plugi
 */
 `;
 
-// Add information on dependent packages with no comments on licences.
+// Add information on dependent packages with no comments on licenses.
 // (they cannot be automatically licensed in esbuild)
 const footer = `/*
 Dependencies and their licenses:

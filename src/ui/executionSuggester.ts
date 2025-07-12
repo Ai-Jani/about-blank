@@ -46,7 +46,7 @@ export class ExecutionSuggester extends SuggestModal<Execution> {
         });
       });
     } catch (error) {
-      loggerOnError(error, "Failled to get suggestions.");
+      loggerOnError(error, "Failed to get suggestions.");
       return [];
     }
   }
@@ -57,7 +57,7 @@ export class ExecutionSuggester extends SuggestModal<Execution> {
       elem.createEl("div", { text: execution.name });
       setIcon(elem.createEl("div"), execution.icon);
     } catch (error) {
-      loggerOnError(error, "Failled to render suggestion.");
+      loggerOnError(error, "Failed to render suggestion.");
     }
   }
 
@@ -65,7 +65,7 @@ export class ExecutionSuggester extends SuggestModal<Execution> {
     try {
       void execution.callback();
     } catch (error) {
-      loggerOnError(error, "Failled to select suggestion.");
+      loggerOnError(error, "Failed to select suggestion.");
     }
   }
 }

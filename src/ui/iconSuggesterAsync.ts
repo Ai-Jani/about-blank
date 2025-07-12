@@ -117,7 +117,7 @@ export class IconSuggesterAsync extends SuggestModal<ValueType> {
         });
       });
     } catch (error) {
-      this.errorHandler(error, "Failled to get suggestions.");
+      this.errorHandler(error, "Failed to get suggestions.");
       return [];
     }
   }
@@ -128,7 +128,7 @@ export class IconSuggesterAsync extends SuggestModal<ValueType> {
       elem.createEl("div", { text: icon });
       setIcon(elem.createEl("div"), icon);
     } catch (error) {
-      this.errorHandler(error, "Failled to render suggestion.");
+      this.errorHandler(error, "Failed to render suggestion.");
     }
   }
 
@@ -146,7 +146,7 @@ export class IconSuggesterAsync extends SuggestModal<ValueType> {
       });
       this.close();
     } catch (error) {
-      this.errorHandler(error, "Failled to select suggestion.");
+      this.errorHandler(error, "Failed to select suggestion.");
     }
   }
 }
