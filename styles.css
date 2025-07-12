@@ -1,14 +1,17 @@
-/*  ## Root */
+/** ## Root */
 
-/*  - Unique CSS variables */
+/** - Unique CSS variables */
 :root {
   --about-blank-empty-state-display: none;
   --about-blank-icon-text-gap: 10px;
+  --about-blank-empty-state-container-max-height: 280px;
+  --about-blank-empty-state-list-margin-top: 20px;
+  --about-blank-empty-state-list-margin-top-mobile: 40px;
 }
 
-/*  ## Empty file view */
+/** ## Empty file view */
 
-/*  - Elements of the empty file view are in principle hidden and controlled by unique variables. */
+/** - Elements of the empty file view are in principle hidden and controlled by unique variables. */
 .workspace-split.mod-root .empty-state-action:not(.about-blank-visible),
 .workspace-split.mod-root .empty-state-title:not(.about-blank-visible) {
   display: var(--about-blank-empty-state-display);
@@ -25,9 +28,23 @@
   padding-left: var(--about-blank-icon-text-gap);
 }
 
-/*  ## UI components */
+/** - Adjust the position of the action list. */
 
-/*  - Apply CTA to extra buttons. */
+.workspace-split.mod-root .empty-state-container {
+  max-height: var(--about-blank-empty-state-container-max-height);
+}
+
+.workspace-split.mod-root .empty-state-action-list {
+  margin-top: var(--about-blank-empty-state-list-margin-top);
+}
+
+.workspace-split.mod-root .empty-state-action-list.is-mobile {
+  margin-top: var(--about-blank-empty-state-list-margin-top-mobile);
+}
+
+/** ## UI components */
+
+/** - Apply CTA to extra buttons. */
 .about-blank-cta-ex-button {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
@@ -38,7 +55,7 @@
   background-color: var(--interactive-accent-hover);
 }
 
-/*  - Box to display icon text (similar to an extra button). */
+/** - Box to display icon text (similar to an extra button). */
 .about-blank-icon-text {
   padding: var(--size-2-2);
   display: flex;
@@ -46,7 +63,7 @@
   justify-content: center;
   border-radius: var(--clickable-icon-radius);
 }
-/*  - Among icon text, those representing the icon of the action. */
+/** - Among icon text, those representing the icon of the action. */
 .about-blank-action-icon-text {
   padding: var(--size-2-2);
   display: flex;
@@ -56,26 +73,26 @@
   padding-right: var(--size-2-3);
   margin-right: var(--size-2-3);
 }
-/*  - Class for giving CTA to icon text. */
+/** - Class for giving CTA to icon text. */
 .about-blank-cta-icon {
   background-color: var(--interactive-accent);
   color: var(--text-on-accent);
 }
 
-/*  - Apply styles to extra buttons that fail to set icons. */
+/** - Apply styles to extra buttons that fail to set icons. */
 .about-blank-fake-ex-button {
   background-color: var(--interactive-normal);
   box-shadow: var(--input-shadow);
 }
 
-/*  - Fake icons set on extra buttons and icon text that fail to set icons. */
+/** - Fake icons set on extra buttons and icon text that fail to set icons. */
 .about-blank-fake-icon {
   height: var(--icon-size);
   width: var(--icon-size);
   stroke-width: var(--icon-stroke);
 }
 
-/*  ## Settings */
+/** ## Settings */
 
 .is-phone .about-blank-setting-action-header {
   display: flex !important;
@@ -139,7 +156,7 @@
   display: none;
 }
 
-/*  - This class is used to prevent the height per action from fluctuating when "Switch info" is performed.
+/** - This class is used to prevent the height per action from fluctuating when "Switch info" is performed.
       Currently, the highest component is the "text box", so by setting this height,
       it will always be displayed at that height. */
 .about-blank-icon-height-adjuster {

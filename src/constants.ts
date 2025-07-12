@@ -25,7 +25,31 @@ export const CSS_CLASSES = {
 } as const;
 
 export const CSS_VARS = {
-  emptyStateDisplay: "--about-blank-empty-state-display",
-  defaultDisplayValue: "block",
-  iconTextGap: "--about-blank-icon-text-gap",
+  emptyStateDisplay: {
+    name: "--about-blank-empty-state-display",
+    value: {
+      default: "block",
+    },
+  },
+  iconTextGap: {
+    name: "--about-blank-icon-text-gap",
+  },
+  emptyStateContainerMaxHeight: {
+    name: "--about-blank-empty-state-container-max-height",
+    value: {
+      centered: "100%",
+    },
+  },
+  emptyStateListMarginTop: {
+    name: "--about-blank-empty-state-list-margin-top",
+    value: {
+      centered: "0px",
+    },
+  },
+  emptyStateListMarginTopMobile: {
+    name: "--about-blank-empty-state-list-margin-top-mobile",
+    value: {
+      centered: "0px",
+    },
+  },
 } as const;

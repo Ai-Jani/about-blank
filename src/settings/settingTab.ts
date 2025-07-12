@@ -15,6 +15,10 @@ import {
 } from "src/settings/action-settings";
 
 import {
+  editStyles,
+} from "src/settings/editStyles";
+
+import {
   HIDE_DEFAULT_ACTIONS,
   makeSettingsHideDefaults,
 } from "src/settings/hideDefault";
@@ -35,10 +39,6 @@ import {
   setFakeIconToExButtonIfEmpty,
 } from "src/commons";
 
-import {
-  CSS_VARS,
-} from "src/constants";
-
 import type AboutBlank from "src/main";
 
 import {
@@ -52,6 +52,8 @@ export interface AboutBlankSettings {
   iconTextGap: number;
   hideMessage: boolean;
   hideDefaultActions: ValuesOf<typeof HIDE_DEFAULT_ACTIONS>;
+  centerActionListVertically: boolean;
+  deleteActionListMarginTop: boolean;
   quickActions: boolean;
   quickActionsIcon: string;
   actions: Action[];
@@ -62,6 +64,8 @@ export const DEFAULT_SETTINGS: AboutBlankSettings = {
   iconTextGap: 10,
   hideMessage: false,
   hideDefaultActions: HIDE_DEFAULT_ACTIONS.not,
+  centerActionListVertically: false,
+  deleteActionListMarginTop: false,
   quickActions: false,
   quickActionsIcon: "",
   actions: [],
@@ -100,6 +104,8 @@ export const settingsPropTypeCheck: {
     const correctValues: unknown[] = Object.values(HIDE_DEFAULT_ACTIONS);
     return correctValues.includes(value);
   },
+  centerActionListVertically: (value: unknown) => isBool(value),
+  deleteActionListMarginTop: (value: unknown) => isBool(value),
   quickActions: (value: unknown) => isBool(value),
   quickActionsIcon: (value: unknown) => typeof value === "string",
   actions: (value: unknown) => Array.isArray(value),
@@ -115,6 +121,7 @@ export const defaultSettingsClone = (): AboutBlankSettings => {
 
 export class AboutBlankSettingTab extends PluginSettingTab {
   plugin: AboutBlank;
+  showAppearanceSettings: boolean = false;
   newActionName: string = "";
   switchInfo: boolean = false;
 
@@ -130,11 +137,8 @@ export class AboutBlankSettingTab extends PluginSettingTab {
       this.containerEl.empty();
 
       this.makeSettingsAddActions();
-      makeSettingsHideDefaults(
-        this.containerEl,
-        this,
-      );
       this.makeSettingsQuickActions();
+      this.makeSettingsAppearance();
       makeSettingsActionsHeader(
         this.containerEl,
         this,
@@ -170,12 +174,9 @@ export class AboutBlankSettingTab extends PluginSettingTab {
             try {
               this.plugin.settings.addActionsToNewTabs = value;
               if (value) {
-                document.documentElement.style.removeProperty(CSS_VARS.emptyStateDisplay);
+                editStyles.rewriteCssVars.emptyStateDisplay.hide();
               } else {
-                document.documentElement.style.setProperty(
-                  CSS_VARS.emptyStateDisplay,
-                  CSS_VARS.defaultDisplayValue,
-                );
+                editStyles.rewriteCssVars.emptyStateDisplay.default();
               }
               await this.plugin.saveSettings();
               this.display();
@@ -184,39 +185,6 @@ export class AboutBlankSettingTab extends PluginSettingTab {
             }
           });
       });
-    if (this.plugin.settings.addActionsToNewTabs) {
-      const limit = DEFAULT_SETTINGS_LIMIT.iconTextGap;
-      if (!limit) {
-        return;
-      }
-      new Setting(this.containerEl)
-        .setName("Icon-text gap")
-        .setDesc(
-          `The gap between the icon and text of the action buttons. Some community themes may require adjusting this value (e.g. Border theme recommends 0px). <${limit.min}px - ${limit.max}px (default: ${DEFAULT_SETTINGS.iconTextGap}px)>`,
-        )
-        .addSlider((slider) => {
-          slider
-            .setLimits(limit.min, limit.max, 1)
-            .setValue(adjustInt(this.plugin.settings.iconTextGap))
-            .setDynamicTooltip()
-            .onChange(async (value) => {
-              try {
-                const num = adjustInt(value);
-                if (!settingsPropTypeCheck.iconTextGap(num)) {
-                  return;
-                }
-                this.plugin.settings.iconTextGap = num;
-                await this.plugin.saveSettings();
-                document.documentElement.style.setProperty(
-                  CSS_VARS.iconTextGap,
-                  `${num}px`,
-                );
-              } catch (error) {
-                loggerOnError(error, "Error in settings.\n(About Blank)");
-              }
-            });
-        });
-    }
   };
 
   private makeSettingsQuickActions = (): void => {
@@ -279,6 +247,112 @@ export class AboutBlankSettingTab extends PluginSettingTab {
             }
           });
       });
+  };
+
+  private makeSettingsAppearance = (): void => {
+    new Setting(this.containerEl)
+      .setHeading()
+      .setName("Appearance")
+      .addExtraButton((button) => {
+        const icon = this.showAppearanceSettings ? "chevron-down" : "chevron-left";
+        button
+          .setIcon(icon)
+          .onClick(() => {
+            try {
+              this.showAppearanceSettings = !this.showAppearanceSettings;
+              this.display();
+            } catch (error) {
+              loggerOnError(error, "Error in settings.\n(About Blank)");
+            }
+          });
+        setFakeIconToExButtonIfEmpty(button.extraSettingsEl);
+      });
+
+    if (this.showAppearanceSettings) {
+      makeSettingsHideDefaults(
+        this.containerEl,
+        this,
+      );
+
+      const limit = DEFAULT_SETTINGS_LIMIT.iconTextGap;
+      new Setting(this.containerEl)
+        .setName("Icon-text gap")
+        .setDesc(
+          `The gap between the icon and text of the action buttons in the empty file view (new tab). Some community themes may require adjusting this value (e.g. Border theme recommends 0px). <${
+            limit?.min ?? ""
+          }px - ${limit?.max ?? ""}px (default: ${DEFAULT_SETTINGS.iconTextGap}px)>`,
+        )
+        .addSlider((slider) => {
+          if (!limit || !Number.isFinite(limit.min) || !Number.isFinite(limit.max) || limit.min >= limit.max) {
+            return;
+          }
+          slider
+            .setLimits(limit.min, limit.max, 1)
+            .setValue(adjustInt(this.plugin.settings.iconTextGap))
+            .setDynamicTooltip()
+            .onChange(async (value) => {
+              try {
+                const num = adjustInt(value);
+                if (!settingsPropTypeCheck.iconTextGap(num)) {
+                  return;
+                }
+                this.plugin.settings.iconTextGap = num;
+                await this.plugin.saveSettings();
+                editStyles.rewriteCssVars.iconTextGap.set(num);
+              } catch (error) {
+                loggerOnError(error, "Error in settings.\n(About Blank)");
+              }
+            });
+        });
+
+      new Setting(this.containerEl)
+        .setName("Center actions vertically")
+        .setDesc(
+          "If enabled, the actions in the empty file view (new tab) will be centered vertically. This may not work well with some community themes.",
+        )
+        .addToggle((toggle) => {
+          toggle
+            .setValue(this.plugin.settings.centerActionListVertically)
+            .onChange(async (value) => {
+              try {
+                this.plugin.settings.centerActionListVertically = value;
+                if (value) {
+                  editStyles.rewriteCssVars.emptyStateContainerMaxHeight.centered();
+                } else {
+                  editStyles.rewriteCssVars.emptyStateContainerMaxHeight.default();
+                }
+                await this.plugin.saveSettings();
+                this.display();
+              } catch (error) {
+                loggerOnError(error, "Error in settings.\n(About Blank)");
+              }
+            });
+        });
+
+      new Setting(this.containerEl)
+        .setName("Delete actions margin-top (more centered)")
+        .setDesc(
+          "If enabled, the margin-top of the actions in the empty file view (new tab) will be deleted. When used in combination with the \"Center actions vertically\" setting, it will be centered more.",
+        )
+        .addToggle((toggle) => {
+          toggle
+            .setValue(this.plugin.settings.deleteActionListMarginTop)
+            .onChange(async (value) => {
+              try {
+                this.plugin.settings.deleteActionListMarginTop = value;
+                if (value) {
+                  editStyles.rewriteCssVars.emptyStateListMarginTop.centered();
+                } else {
+                  editStyles.rewriteCssVars.emptyStateListMarginTop.default();
+                }
+                await this.plugin.saveSettings();
+                this.display();
+              } catch (error) {
+                loggerOnError(error, "Error in settings.\n(About Blank)");
+              }
+            });
+        });
+    }
   };
 
   private makeSettingsCleanUp = (): void => {

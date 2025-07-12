@@ -22,6 +22,10 @@ import {
 } from "src/settings/action-edit";
 
 import {
+  editStyles,
+} from "src/settings/editStyles";
+
+import {
   HIDE_DEFAULT_ACTIONS,
 } from "src/settings/hideDefault";
 
@@ -51,7 +55,6 @@ import {
 import {
   COMMANDS,
   CSS_CLASSES,
-  CSS_VARS,
 } from "src/constants";
 
 import {
@@ -77,17 +80,19 @@ export default class AboutBlank extends Plugin {
         this.registerEvent(
           this.app.workspace.on("layout-change", this.addButtonsEventHandler),
         );
-        document.documentElement.style.setProperty(
-          CSS_VARS.iconTextGap,
-          `${adjustInt(this.settings.iconTextGap)}px`,
-        );
+        editStyles.rewriteCssVars.iconTextGap.set(adjustInt(this.settings.iconTextGap));
+        if (this.settings.centerActionListVertically) {
+          editStyles.rewriteCssVars.emptyStateContainerMaxHeight.centered();
+        }
+        if (this.settings.deleteActionListMarginTop) {
+          editStyles.rewriteCssVars.emptyStateListMarginTop.centered();
+        }
         // Reset for lazy loading
         this.closeAllNewTabs();
       } else {
-        document.documentElement.style.setProperty(
-          CSS_VARS.emptyStateDisplay,
-          CSS_VARS.defaultDisplayValue,
-        );
+        editStyles.rewriteCssVars.emptyStateDisplay.default();
+        editStyles.rewriteCssVars.emptyStateContainerMaxHeight.default();
+        editStyles.rewriteCssVars.emptyStateListMarginTop.default();
       }
 
       this.addSettingTab(new AboutBlankSettingTab(this.app, this));
