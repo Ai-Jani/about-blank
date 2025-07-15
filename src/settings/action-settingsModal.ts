@@ -255,10 +255,13 @@ export class ActionSettingsModal extends Modal {
               const noIconId = "*No icon*";
               const iconIds = getIconIds();
               iconIds.unshift(noIconId);
+              const placeholder = this.modAction.icon
+                ? this.modAction.icon
+                : "Icon...";
               const response = await new IconSuggesterAsync(
                 this.app,
                 iconIds,
-                "Icon...",
+                placeholder,
               ).openAndRespond();
               if (response.aborted) {
                 return;

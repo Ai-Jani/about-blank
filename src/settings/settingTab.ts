@@ -1,6 +1,7 @@
 import {
   type App,
   getIconIds,
+  Notice,
   PluginSettingTab,
   Setting,
 } from "obsidian";
@@ -124,6 +125,7 @@ export class AboutBlankSettingTab extends PluginSettingTab {
   showAppearanceSettings: boolean = false;
   newActionName: string = "";
   switchInfo: boolean = false;
+  showCleanUpSettings: boolean = false;
 
   constructor(app: App, plugin: AboutBlank) {
     super(app, plugin);
@@ -179,6 +181,7 @@ export class AboutBlankSettingTab extends PluginSettingTab {
                 editStyles.rewriteCssVars.emptyStateDisplay.default();
               }
               await this.plugin.saveSettings();
+              new Notice("Reload Obsidian to apply changes", 0);
               this.display();
             } catch (error) {
               loggerOnError(error, "Error in settings.\n(About Blank)");
@@ -205,10 +208,13 @@ export class AboutBlankSettingTab extends PluginSettingTab {
                 const noIconId = "*No icon*";
                 const iconIds = getIconIds();
                 iconIds.unshift(noIconId);
+                const placeholder = this.plugin.settings.quickActionsIcon
+                  ? this.plugin.settings.quickActionsIcon
+                  : "Icon...";
                 const response = await new IconSuggesterAsync(
                   this.app,
                   iconIds,
-                  "Icon...",
+                  placeholder,
                 ).openAndRespond();
                 if (response.aborted) {
                   return;
@@ -255,8 +261,10 @@ export class AboutBlankSettingTab extends PluginSettingTab {
       .setName("Appearance")
       .addExtraButton((button) => {
         const icon = this.showAppearanceSettings ? "chevron-down" : "chevron-left";
+        const tooltip = this.showAppearanceSettings ? "Hide" : "Show";
         button
           .setIcon(icon)
+          .setTooltip(tooltip)
           .onClick(() => {
             try {
               this.showAppearanceSettings = !this.showAppearanceSettings;
@@ -356,23 +364,44 @@ export class AboutBlankSettingTab extends PluginSettingTab {
   };
 
   private makeSettingsCleanUp = (): void => {
-    new Setting(this.containerEl)
+    const settingItem = new Setting(this.containerEl);
+    settingItem
       .setHeading()
-      .setName("Clean up settings")
-      .setDesc(
-        "It checks the settings data, type or value, duplicate command IDs, etc., and initializes any abnormal parts. Details of the changes are output to the console. These changes are not actually saved unless triggered. They can be discarded by reloading Obsidian.",
-      )
-      .addButton((button) => {
+      .setName("Clean up settings");
+    if (this.showCleanUpSettings) {
+      settingItem
+        .setDesc(
+          "It checks the settings data, type or value, duplicate command IDs, etc., and initializes any abnormal parts. Details of the changes are output to the console. These changes are not actually saved unless triggered. They can be discarded by reloading Obsidian.",
+        )
+        .addButton((button) => {
+          button
+            .setWarning()
+            .setButtonText("Clean up")
+            .onClick(() => {
+              try {
+                this.plugin.cleanUpSettings();
+              } catch (error) {
+                loggerOnError(error, "Error in settings.\n(About Blank)");
+              }
+            });
+        });
+    }
+    settingItem
+      .addExtraButton((button) => {
+        const icon = this.showCleanUpSettings ? "chevron-down" : "chevron-left";
+        const tooltip = this.showCleanUpSettings ? "Hide" : "Show";
         button
-          .setWarning()
-          .setButtonText("Clean up")
+          .setIcon(icon)
+          .setTooltip(tooltip)
           .onClick(() => {
             try {
-              this.plugin.cleanUpSettings();
+              this.showCleanUpSettings = !this.showCleanUpSettings;
+              this.display();
             } catch (error) {
               loggerOnError(error, "Error in settings.\n(About Blank)");
             }
           });
+        setFakeIconToExButtonIfEmpty(button.extraSettingsEl);
       });
   };
 }
