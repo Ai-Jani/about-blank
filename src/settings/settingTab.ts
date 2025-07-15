@@ -1,6 +1,7 @@
 import {
   type App,
   getIconIds,
+  Notice,
   PluginSettingTab,
   Setting,
 } from "obsidian";
@@ -180,6 +181,7 @@ export class AboutBlankSettingTab extends PluginSettingTab {
                 editStyles.rewriteCssVars.emptyStateDisplay.default();
               }
               await this.plugin.saveSettings();
+              new Notice("Reload Obsidian to apply changes", 0);
               this.display();
             } catch (error) {
               loggerOnError(error, "Error in settings.\n(About Blank)");
