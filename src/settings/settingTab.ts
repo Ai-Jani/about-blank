@@ -208,10 +208,13 @@ export class AboutBlankSettingTab extends PluginSettingTab {
                 const noIconId = "*No icon*";
                 const iconIds = getIconIds();
                 iconIds.unshift(noIconId);
+                const placeholder = this.plugin.settings.quickActionsIcon
+                  ? this.plugin.settings.quickActionsIcon
+                  : "Icon...";
                 const response = await new IconSuggesterAsync(
                   this.app,
                   iconIds,
-                  "Icon...",
+                  placeholder,
                 ).openAndRespond();
                 if (response.aborted) {
                   return;
