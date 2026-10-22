@@ -302,10 +302,18 @@ export default class AboutBlank extends Plugin {
   };
 
   private addActionButton = (element: HTMLElement, action: PracticalAction): void => {
+    // Same markup as the actions rendered by Obsidian itself (Obsidian >= 1.14).
     const container = element.createEl(
       "div",
       {
-        cls: `${UNSAFE_CSS_CLASSES.defaultEmptyAction} ${CSS_CLASSES.visible} ${CSS_CLASSES.aboutBlankContainer}`,
+        cls: [
+          UNSAFE_CSS_CLASSES.defaultEmptyAction,
+          UNSAFE_CSS_CLASSES.textIconButton,
+          UNSAFE_CSS_CLASSES.modPill,
+          CSS_CLASSES.visible,
+          CSS_CLASSES.aboutBlankContainer,
+        ].join(" "),
+        attr: { tabindex: "0", role: "button" },
       },
       (elem: Element) => {
         elem.addEventListener("click", () => {
@@ -314,12 +322,15 @@ export default class AboutBlank extends Plugin {
       },
     );
     if (!isFalsyString(action.icon)) {
-      setIcon(container, action.icon);
+      setIcon(
+        container.createEl("span", { cls: UNSAFE_CSS_CLASSES.textButtonIcon }),
+        action.icon,
+      );
     }
     container.createEl(
-      "div",
+      "span",
       {
-        cls: `${CSS_CLASSES.visible} ${CSS_CLASSES.aboutBlank}`,
+        cls: `${UNSAFE_CSS_CLASSES.textButtonLabel} ${CSS_CLASSES.visible} ${CSS_CLASSES.aboutBlank}`,
         text: `${action.name}`,
       },
     );

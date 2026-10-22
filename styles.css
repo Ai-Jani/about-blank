@@ -17,15 +17,19 @@
   display: var(--about-blank-empty-state-display);
 }
 
-.about-blank-button-container {
+/** - Since Obsidian 1.14 the actions are rendered as "pills" by Obsidian itself
+      (`text-icon-button mod-pill`), so only the gap between icon and text is set here. */
+.about-blank-button-container.text-icon-button {
+  gap: var(--about-blank-icon-text-gap);
+}
+
+/** - Fallback for the actions rendered on older versions, where the pill classes do not exist. */
+.about-blank-button-container:not(.text-icon-button) {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-}
-
-.about-blank-button-container:has(.svg-icon) .about-blank-button {
-  padding-left: var(--about-blank-icon-text-gap);
+  gap: var(--about-blank-icon-text-gap);
 }
 
 /** - Adjust the position of the action list. */

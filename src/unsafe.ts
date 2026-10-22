@@ -9,6 +9,17 @@ import {
 export const UNSAFE_CSS_CLASSES = {
   defaultEmptyAction: "empty-state-action tappable",
   defaultCloseAction: "mod-close",
+  // Since Obsidian 1.14 the empty file view renders its actions as pills:
+  //   <div class="text-icon-button tappable mod-pill empty-state-action">
+  //     <span class="text-button-icon">…</span>
+  //     <span class="text-button-label">…</span>
+  //   </div>
+  // An action element with only `empty-state-action` is no longer styled,
+  // so the same classes are used for the actions added by About Blank.
+  textIconButton: "text-icon-button",
+  modPill: "mod-pill",
+  textButtonIcon: "text-button-icon",
+  textButtonLabel: "text-button-label",
 } as const;
 
 // =============================================================================
